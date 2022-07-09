@@ -1,10 +1,17 @@
 require('dotenv').config()
 const http = require('http')
 const app = require('./app/app.js')
+const { globalError, serverError } = require('./app/error')
 
 const server = http.createServer(app)
-const PORT = process.env.PORT || 4444
+const PORT = 8000
 
-server.listen(PORT, () => {
+
+app.use(globalError)
+app.use(serverError)
+
+
+
+server.listen(PORT,() => {
     console.log(`server is running on port ${PORT}`)
 })
